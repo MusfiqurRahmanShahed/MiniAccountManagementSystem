@@ -4,27 +4,33 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// 1. Add DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
     options.UseSqlServer(connectionString);
 });
 
-// ? Add Identity services (User, Roles, etc.)
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
+// ? Only use AddIdentity (with roles)
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequiredLength = 6;
+    options.SignIn.RequireConfirmedAccount = false;
+})
+.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultTokenProviders()
+.AddDefaultUI(); // Needed for Razor Identity UI
 
-// ? Add Authorization
+// 2. Add Authorization
 builder.Services.AddAuthorization();
 
-// ? Add Razor Pages (required for .WithStaticAssets() to work)
+// 3. Add Razor Pages
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// 4. Configure middleware
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
@@ -32,15 +38,20 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 
 app.UseRouting();
 
-// ? Add Authentication & Authorization middleware
-app.UseAuthentication();
+app.UseAuthentication(); // ? Must be before UseAuthorization
 app.UseAuthorization();
 
-// ? Map Razor Pages
-app.MapStaticAssets();
-app.MapRazorPages().WithStaticAssets();
+app.MapRazorPages(); // ? Needed to use Identity Razor pages
+
+// 5. Seed Roles and Admin User
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    await DbInitializer.SeedRolesAndAdminAsync(services);
+}
 
 app.Run();
