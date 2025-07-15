@@ -1,0 +1,7 @@
+﻿@page
+@using Microsoft.AspNetCore.Authorization
+@model AccountManagementSystem.Pages.Dashboard.AdminModel
+@attribute [Authorize(Roles = "Admin")]
+
+<h2>👑 Welcome, Admin!</h2>
+<p>This is your admin dashboard. You can manage users, roles, accounts, and more.</p>
