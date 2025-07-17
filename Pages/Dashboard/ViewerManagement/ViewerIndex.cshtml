@@ -1,11 +1,14 @@
 ﻿@page
+@model AccountManagementSystem.Pages.Dashboard.ViewerManagement.ViewerIndexModel
 @using Microsoft.AspNetCore.Authorization
-@model AccountManagementSystem.Pages.Dashboard.ViewerModel
-@attribute [Authorize(Roles = "Viewer")]
+@attribute [Authorize(Roles = "Admin,Accountant,Viewer")]
 
-<h2>👁 Welcome, Viewer!</h2>
-<p>This is your viewer dashboard. You have read-only access to reports.</p>
+@{
+    ViewData["Title"] = "Viewer Management";
+}
 
+<h2>👁️ Viewer Management</h2>
+<a class="btn btn-success mb-3" asp-page="AddViewer">+ Add New Viewer</a>
 <table class="table table-bordered mt-4">
     <thead class="table-dark">
         <tr>
@@ -29,4 +32,4 @@
             </tr>
         }
     </tbody>
-</table> 
+</table>

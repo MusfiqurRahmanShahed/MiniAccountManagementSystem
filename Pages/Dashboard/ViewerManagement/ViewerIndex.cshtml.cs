@@ -1,16 +1,17 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
-namespace AccountManagementSystem.Pages.Dashboard
+namespace AccountManagementSystem.Pages.Dashboard.ViewerManagement
 {
-    public class ViewerModel : PageModel
+    public class ViewerIndexModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
 
-        public ViewerModel(UserManager<IdentityUser> userManager)
+        public ViewerIndexModel(UserManager<IdentityUser> userManager)
         {
             _userManager = userManager;
         }
@@ -19,10 +20,10 @@ namespace AccountManagementSystem.Pages.Dashboard
 
         public async Task OnGetAsync()
         {
-            var users = _userManager.Users.ToList(); // Materialize to memory first
-            Viewers = new List<IdentityUser>();
+            var allUsers = await _userManager.Users.ToListAsync(); // Ensure DataReader is closed
+            Viewers = new();
 
-            foreach (var user in users)
+            foreach (var user in allUsers)
             {
                 if (await _userManager.IsInRoleAsync(user, "Viewer"))
                 {
@@ -31,11 +32,10 @@ namespace AccountManagementSystem.Pages.Dashboard
             }
         }
 
-
         public async Task<IActionResult> OnPostDeleteAsync(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
-            if (user != null && await _userManager.IsInRoleAsync(user, "Viewer"))
+            if (user != null)
             {
                 await _userManager.DeleteAsync(user);
             }

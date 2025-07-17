@@ -95,13 +95,13 @@ namespace AccountManagementSystem.Areas.Identity.Pages.Account
                     Console.WriteLine($"Logged in as {user.Email}, Roles: {string.Join(",", roles)}");
 
                     if (roles.Contains("Admin"))
-                        return LocalRedirect("/Dashboard/Admin");
+                        return Redirect("/Dashboard/Admin");
                     else if (roles.Contains("Accountant"))
-                        return LocalRedirect("/Dashboard/Accountant");
+                        return Redirect("/Dashboard/Accountant");
                     else if (roles.Contains("Viewer"))
-                        return LocalRedirect("/Dashboard/Viewer");
+                        return Redirect("/Dashboard/Viewer");
 
-                    return LocalRedirect(returnUrl); // fallback
+                    return Redirect("/"); // fallback
                 }
 
                 if (result.RequiresTwoFactor)

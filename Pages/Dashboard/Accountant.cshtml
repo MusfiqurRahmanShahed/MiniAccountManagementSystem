@@ -1,7 +1,54 @@
 ﻿@page
 @using Microsoft.AspNetCore.Authorization
 @model AccountManagementSystem.Pages.Dashboard.AccountantModel
-@attribute [Authorize(Roles = "Accountant")]
+@attribute [Authorize(Roles = "Admin,Accountant")]
 
 <h2>💼 Welcome, Accountant!</h2>
 <p>This is your accounting dashboard. You can manage vouchers and transactions.</p>
+
+<h2>👨‍💼 Accountant Management</h2>
+
+<a class="btn btn-success mb-3" asp-page="/Dashboard/AccountantManagement/AddAccountant">+ Add New Accountant</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>UserName</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var acc in Model.Accountants)
+        {
+            <tr>
+                <td>@acc.Email</td>
+                <td>@acc.UserName</td>
+                <td>
+                    <a asp-page="/Dashboard/AccountantManagement/EditAccountant" asp-route-id="@acc.Id" class="btn btn-sm btn-primary">Edit</a>
+                    <form method="post" asp-page-handler="Delete" asp-route-id="@acc.Id" style="display:inline">
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@* <div>
+    <a asp-page="/Dashboard/AccountantManagement/AccountantIndex" class="btn btn-primary">
+        👨‍💼 Manage Accountants
+    </a>
+</div> *@
+
+<div>
+    <a asp-page="/Dashboard/ViewerManagement/ViewerIndex" class="btn btn-primary">
+        👨‍💼 Manage Viewer
+    </a>
+</div>
+
+<div>
+    <a asp-page="/ChartOfAccounts/Index" class="btn btn-primary">
+        👨‍💼 List of Accounts
+    </a>
+</div>

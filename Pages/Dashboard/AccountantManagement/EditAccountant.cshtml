@@ -1,0 +1,28 @@
+﻿@page
+@model AccountManagementSystem.Pages.Dashboard.AccountantManagement.EditAccountantModel
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Identity
+@attribute [Authorize(Roles = "Admin,Accountant")]
+
+<h2>✏️ Edit Accountant</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Input.Id" />
+
+    <div class="mb-3">
+        <label>Email</label>
+        <input asp-for="Input.Email" class="form-control" />
+        <span asp-validation-for="Input.Email" class="text-danger" />
+    </div>
+    <div class="mb-3">
+        <label>UserName</label>
+        <input asp-for="Input.UserName" class="form-control" />
+        <span asp-validation-for="Input.UserName" class="text-danger" />
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a asp-page="AccountantIndex" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

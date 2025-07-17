@@ -1,7 +1,8 @@
 ﻿@page
 @model AccountManagementSystem.Pages.ChartOfAccounts.IndexModel
-@{
-}
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Roles = "Admin,Accountant")]
+
 <h2 class="text-center mb-3">ListOfAccounts</h2>
 <a class="btn-primary" asp-page="/ChartOfAccounts/Create">Create Account</a>
 
