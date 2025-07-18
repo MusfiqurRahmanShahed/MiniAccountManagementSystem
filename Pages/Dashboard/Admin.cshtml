@@ -3,31 +3,43 @@
 @model AccountManagementSystem.Pages.Dashboard.AdminModel
 @attribute [Authorize(Roles = "Admin")]
 
-<h2>👑 Welcome, Admin!</h2>
-<p>This is your admin dashboard. You can manage users, roles, accounts, and more.</p>
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
 
-<hr />
+<div class="container my-5">
+    <div class="text-center mb-5">
+        <h2 class="display-5">👑 Welcome, Admin!</h2>
+        <p class="lead">This is your admin dashboard. You can manage users, roles, accounts, and more.</p>
+    </div>
 
-<div>
-    <a asp-page="/ChartOfAccounts/Index" class="btn btn-primary">
-        👨‍💼 List of Accounts
-    </a>
-</div>
+    <div class="row g-4 justify-content-center">
+        <div class="col-md-4">
+            <a asp-page="/ChartOfAccounts/Index" class="btn btn-outline-primary w-100 py-3 shadow-sm">
+                <h5 class="mb-1">📘 List of Accounts</h5>
+                <small>View all existing chart of accounts</small>
+            </a>
+        </div>
 
-<div>
-    <a asp-page="/Dashboard/Accountant" class="btn btn-primary">
-        👨‍💼 Manage Accountants
-    </a>
-</div>
+        <div class="col-md-4">
+            <a asp-page="/Dashboard/Accountant" class="btn btn-outline-success w-100 py-3 shadow-sm">
+                <h5 class="mb-1">👨‍💼 Manage Accountants</h5>
+                <small>Add, edit, or remove accountants</small>
+            </a>
+        </div>
 
-<div>
-    <a asp-page="/Dashboard/ViewerManagement/ViewerIndex" class="btn btn-primary">
-        👨‍💼 Manage Viewer
-    </a>
-</div>
+        <div class="col-md-4">
+            <a asp-page="/Dashboard/ViewerManagement/ViewerIndex" class="btn btn-outline-info w-100 py-3 shadow-sm">
+                <h5 class="mb-1">👁️ Manage Viewers</h5>
+                <small>Assign and view viewer accounts</small>
+            </a>
+        </div>
 
-<div>
-    <a asp-page="/Dashboard/Voucher/VoucherIndex" class="btn btn-primary">
-        🧾 Add Voucher
-    </a>
+        <div class="col-md-4">
+            <a asp-page="/Dashboard/Voucher/VoucherIndex" class="btn btn-outline-warning w-100 py-3 shadow-sm">
+                <h5 class="mb-1">🧾 Add Voucher</h5>
+                <small>Create and manage financial vouchers</small>
+            </a>
+        </div>
+    </div>
 </div>

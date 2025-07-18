@@ -3,58 +3,76 @@
 @model AccountManagementSystem.Pages.Dashboard.AccountantModel
 @attribute [Authorize(Roles = "Admin,Accountant")]
 
-<h2>💼 Welcome, Accountant!</h2>
-<p>This is your accounting dashboard. You can manage vouchers and transactions.</p>
+<div class="container mt-5">
 
-<h2>👨‍💼 Accountant Management</h2>
+    <div class="mb-4 text-center">
+        <h2 class="text-primary">💼 Welcome, Accountant!</h2>
+        <p class="text-muted">This is your accounting dashboard. You can manage vouchers, transactions, and team members.</p>
+    </div>
 
-<a class="btn btn-success mb-3" asp-page="/Dashboard/AccountantManagement/AddAccountant">+ Add New Accountant</a>
+    <div class="row g-4">
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Email</th>
-            <th>UserName</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var acc in Model.Accountants)
-        {
-            <tr>
-                <td>@acc.Email</td>
-                <td>@acc.UserName</td>
-                <td>
-                    <a asp-page="/Dashboard/AccountantManagement/EditAccountant" asp-route-id="@acc.Id" class="btn btn-sm btn-primary">Edit</a>
-                    <form method="post" asp-page-handler="Delete" asp-route-id="@acc.Id" style="display:inline">
-                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+        <!-- Accountant Management Section -->
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <span>👨‍💼 Accountant Management</span>
+                    <a class="btn btn-light btn-sm" asp-page="/Dashboard/AccountantManagement/AddAccountant">
+                        + Add Accountant
+                    </a>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-bordered table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Email</th>
+                                <th>Username</th>
+                                <th class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var acc in Model.Accountants)
+                            {
+                                <tr>
+                                    <td>@acc.Email</td>
+                                    <td>@acc.UserName</td>
+                                    <td class="text-center">
+                                        <a asp-page="/Dashboard/AccountantManagement/EditAccountant" asp-route-id="@acc.Id" class="btn btn-sm btn-outline-primary me-1">Edit</a>
+                                        <form method="post" asp-page-handler="Delete" asp-route-id="@acc.Id" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 
-@* <div>
-    <a asp-page="/Dashboard/AccountantManagement/AccountantIndex" class="btn btn-primary">
-        👨‍💼 Manage Accountants
-    </a>
-</div> *@
+        <!-- Quick Links Section -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-secondary text-white">
+                    📂 Quick Navigation
+                </div>
+                <div class="card-body d-grid gap-2">
 
-<div>
-    <a asp-page="/Dashboard/ViewerManagement/ViewerIndex" class="btn btn-primary">
-        👨‍💼 Manage Viewer
-    </a>
-</div>
+                    <a asp-page="/Dashboard/ViewerManagement/ViewerIndex" class="btn btn-outline-primary">
+                        👁️ Manage Viewers
+                    </a>
 
-<div>
-    <a asp-page="/ChartOfAccounts/Index" class="btn btn-primary">
-        👨‍💼 List of Accounts
-    </a>
-</div>
+                    <a asp-page="/ChartOfAccounts/Index" class="btn btn-outline-primary">
+                        📚 Chart of Accounts
+                    </a>
 
-<div>
-    <a asp-page="/Dashboard/Voucher/VoucherIndex" class="btn btn-primary">
-        🧾 Add Voucher
-    </a>
+                    <a asp-page="/Dashboard/Voucher/VoucherIndex" class="btn btn-outline-primary">
+                        🧾 Manage Vouchers
+                    </a>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>

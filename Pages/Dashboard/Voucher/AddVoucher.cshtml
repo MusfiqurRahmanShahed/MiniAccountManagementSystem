@@ -6,40 +6,64 @@
     ViewData["Title"] = "Add Voucher";
 }
 
-<h2>Add Voucher</h2>
-
-<form method="post">
-    <div class="mb-3">
-        <label>Date</label>
-        <input asp-for="Voucher.Date" class="form-control" type="date" />
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="fw-bold text-success">🧾 Add New Voucher</h2>
+        <a asp-page="/Dashboard/Voucher/VoucherIndex" class="btn btn-outline-secondary">
+            ⬅️ Back to List
+        </a>
     </div>
 
-    <div class="mb-3">
-        <label>Reference No</label>
-        <input asp-for="Voucher.ReferenceNo" class="form-control" />
-    </div>
+    <form method="post" class="card shadow-sm p-4">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">Date</label>
+                <input asp-for="Voucher.Date" class="form-control" type="date" />
+                <span asp-validation-for="Voucher.Date" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Reference No</label>
+                <input asp-for="Voucher.ReferenceNo" class="form-control" />
+                <span asp-validation-for="Voucher.ReferenceNo" class="text-danger"></span>
+            </div>
+        </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Account ID</th>
-                <th>Debit</th>
-                <th>Credit</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (int i = 0; i < Model.Voucher.Lines.Count; i++)
-            {
-                <tr>
-                    <td><input asp-for="Voucher.Lines[@i].AccountId" class="form-control" /></td>
-                    <td><input asp-for="Voucher.Lines[@i].Debit" class="form-control" /></td>
-                    <td><input asp-for="Voucher.Lines[@i].Credit" class="form-control" /></td>
-                </tr>
-            }
-        </tbody>
-    </table>
+        <h5 class="mt-4 mb-3">Voucher Lines</h5>
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead class="table-light text-center">
+                    <tr>
+                        <th>Account ID</th>
+                        <th>Debit</th>
+                        <th>Credit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Voucher.Lines.Count; i++)
+                    {
+                        <tr>
+                            <td>
+                                <input asp-for="Voucher.Lines[@i].AccountId" class="form-control" />
+                                <span asp-validation-for="Voucher.Lines[@i].AccountId" class="text-danger"></span>
+                            </td>
+                            <td>
+                                <input asp-for="Voucher.Lines[@i].Debit" class="form-control" />
+                                <span asp-validation-for="Voucher.Lines[@i].Debit" class="text-danger"></span>
+                            </td>
+                            <td>
+                                <input asp-for="Voucher.Lines[@i].Credit" class="form-control" />
+                                <span asp-validation-for="Voucher.Lines[@i].Credit" class="text-danger"></span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
 
-    <button type="submit" class="btn btn-primary">Save Voucher</button>
-</form>
-
-
+        <div class="text-end mt-4">
+            <button type="submit" class="btn btn-primary px-4">
+                💾 Save Voucher
+            </button>
+        </div>
+    </form>
+</div>

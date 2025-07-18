@@ -6,31 +6,56 @@
     ViewData["Title"] = "Voucher Details";
 }
 
-<h2>🧾 Voucher Details (ID: @Model.Header.Id)</h2>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="fw-bold text-info">🧾 Voucher Details</h2>
+        <a asp-page="/Dashboard/Voucher/VoucherIndex" class="btn btn-outline-secondary">
+            ⬅️ Back to List
+        </a>
+    </div>
 
-<p><strong>Date:</strong> @Model.Header.Date.ToString("yyyy-MM-dd")</p>
-<p><strong>Reference No:</strong> @Model.Header.ReferenceNo</p>
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <div class="row mb-2">
+                <div class="col-md-6">
+                    <strong>ID:</strong> @Model.Header.Id
+                </div>
+                <div class="col-md-6">
+                    <strong>Date:</strong> @Model.Header.Date.ToString("yyyy-MM-dd")
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>Reference No:</strong> @Model.Header.ReferenceNo
+                </div>
+            </div>
+        </div>
+    </div>
 
-<hr />
-
-<h4>Voucher Lines</h4>
-
-<table class="table table-bordered">
-    <thead class="table-dark">
-        <tr>
-            <th>Account ID</th>
-            <th>Debit</th>
-            <th>Credit</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var line in Model.Lines)
-        {
-            <tr>
-                <td>@line.AccountId</td>
-                <td>@line.Debit</td>
-                <td>@line.Credit</td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <div class="card shadow-sm">
+        <div class="card-header bg-light">
+            <h5 class="mb-0">📄 Voucher Lines</h5>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-bordered mb-0">
+                <thead class="table-light text-center">
+                    <tr>
+                        <th>Account ID</th>
+                        <th>Debit</th>
+                        <th>Credit</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    @foreach (var line in Model.Lines)
+                    {
+                        <tr>
+                            <td>@line.AccountId</td>
+                            <td>@line.Debit</td>
+                            <td>@line.Credit</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

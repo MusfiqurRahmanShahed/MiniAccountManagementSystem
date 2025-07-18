@@ -3,30 +3,47 @@
 @model AccountManagementSystem.Pages.Dashboard.ViewerModel
 @attribute [Authorize(Roles = "Viewer")]
 
-<h2>👁 Welcome, Viewer!</h2>
-<p>This is your viewer dashboard. You have read-only access to reports.</p>
+<div class="container mt-5">
+    <div class="mb-4 text-center">
+        <h2 class="text-primary">👁 Welcome, Viewer!</h2>
+        <p class="text-muted">This is your dashboard. You have <strong>read-only access</strong> to reports and user listings.</p>
+    </div>
 
-<table class="table table-bordered mt-4">
-    <thead class="table-dark">
-        <tr>
-            <th>Email</th>
-            <th>UserName</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var viewer in Model.Viewers)
-        {
-            <tr>
-                <td>@viewer.Email</td>
-                <td>@viewer.UserName</td>
-                <td>
-                    <a asp-page="EditViewer" asp-route-id="@viewer.Id" class="btn btn-sm btn-primary">Edit</a>
-                    <form method="post" asp-page-handler="Delete" asp-route-id="@viewer.Id" onsubmit="return confirm('Are you sure you want to delete this viewer?');">
-                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table> 
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-secondary text-white fw-semibold">
+            👤 Viewer Accounts
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-bordered table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Email</th>
+                        <th>Username</th>
+                        @* <th class="text-center">Actions</th> *@
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var viewer in Model.Viewers)
+                    {
+                        <tr>
+                            <td>@viewer.Email</td>
+                            <td>@viewer.UserName</td>
+                            @* <td class="text-center">
+                                <a asp-page="EditViewer" asp-route-id="@viewer.Id" class="btn btn-sm btn-outline-primary me-2">
+                                    <i class="bi bi-pencil-square"></i> Edit
+                                </a>
+                                <form method="post" asp-page-handler="Delete" asp-route-id="@viewer.Id"
+                                      onsubmit="return confirm('Are you sure you want to delete this viewer?');"
+                                      class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </button>
+                                </form>
+                            </td> *@
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

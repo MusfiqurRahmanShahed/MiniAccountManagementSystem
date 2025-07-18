@@ -3,42 +3,63 @@
 @using Microsoft.AspNetCore.Authorization
 @attribute [Authorize(Roles = "Admin,Accountant")]
 
-<h2 class="text-center mb-3">ListOfAccounts</h2>
-<a class="btn-primary" asp-page="/ChartOfAccounts/Create">Create Account</a>
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary">Chart of Accounts</h2>
+        <a class="btn btn-success" asp-page="/ChartOfAccounts/Create">
+            <i class="bi bi-plus-circle"></i> Create Account
+        </a>
+    </div>
 
-<table class="table">
-	<thead>
-		<tr>
-			<th>AccountId</th>
-			<th>AccountName</th>
-			<th>Email</th>
-			<th>PhoneNumber</th>
-			<th>ParentId</th>
-			<th>AccountStatus</th>
-			<th>DateOfCreation</th>
-			<th>CreatedBy</th>
-			<th>Actions</th>
-
-		</tr>
-	</thead>
-
-	<tbody>
-		@foreach (var item in Model.ChartOfAccounts)
-	{
-		<tr>
-			<td>@item.Id</td>
-			<td>@item.Name</td>
-			<td>@item.Email</td>
-			<td>@item.PhoneNumber</td>
-			<td>@item.ParentId</td>
-			<td>@item.IsActive</td>
-			<td>@item.CreatedAt.ToString("dd/MM/yyyy")</td>
-			<td>@item.CreatedBy</td>
-			<td>
-				<a class="btn btn-primary" asp-page="/ChartOfAccounts/Edit" asp-route-id="@item.Id">Edit</a>
-				<a class="btn btn-danger" asp-page="/ChartOfAccounts/Delete" asp-route-id="@item.Id">Delete</a>
-			</td>
-		</tr>
-		}
-	</tbody>
-</table>
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered align-middle shadow-sm">
+            <thead class="table-dark">
+                <tr>
+                    <th>Account ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Parent ID</th>
+                    <th>Status</th>
+                    <th>Created On</th>
+                    <th>Created By</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ChartOfAccounts)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td>@item.Email</td>
+                        <td>@item.PhoneNumber</td>
+                        <td>@(item.ParentId?.ToString() ?? "—")</td>
+                        <td>
+                            @if (item.IsActive)
+                            {
+                                <span class="badge bg-success">Active</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">Inactive</span>
+                            }
+                        </td>
+                        <td>@item.CreatedAt.ToString("dd MMM yyyy")</td>
+                        <td>@item.CreatedBy</td>
+                        <td class="text-center">
+                            <a class="btn btn-sm btn-outline-primary me-1"
+                               asp-page="/ChartOfAccounts/Edit" asp-route-id="@item.Id">
+                                <i class="bi bi-pencil-square"></i> Edit
+                            </a>
+                            <a class="btn btn-sm btn-outline-danger"
+                               asp-page="/ChartOfAccounts/Delete" asp-route-id="@item.Id">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

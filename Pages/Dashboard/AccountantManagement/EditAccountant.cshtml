@@ -4,24 +4,48 @@
 @using Microsoft.AspNetCore.Identity
 @attribute [Authorize(Roles = "Admin,Accountant")]
 
-<h2>✏️ Edit Accountant</h2>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
 
-<form method="post">
-    <input type="hidden" asp-for="Input.Id" />
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">✏️ Edit Accountant</h5>
+                </div>
 
-    <div class="mb-3">
-        <label>Email</label>
-        <input asp-for="Input.Email" class="form-control" />
-        <span asp-validation-for="Input.Email" class="text-danger" />
+                <div class="card-body">
+
+                    <form method="post" class="needs-validation" novalidate>
+                        <input type="hidden" asp-for="Input.Id" />
+
+                        <div class="mb-3">
+                            <label asp-for="Input.Email" class="form-label">Email Address</label>
+                            <input asp-for="Input.Email" class="form-control" />
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.UserName" class="form-label">Username</label>
+                            <input asp-for="Input.UserName" class="form-control" />
+                            <span asp-validation-for="Input.UserName" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary me-2">
+                                <i class="bi bi-pencil-square"></i> Update
+                            </button>
+                            <a asp-page="/Dashboard/Accountant" class="btn btn-outline-secondary">
+                                Cancel
+                            </a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
     </div>
-    <div class="mb-3">
-        <label>UserName</label>
-        <input asp-for="Input.UserName" class="form-control" />
-        <span asp-validation-for="Input.UserName" class="text-danger" />
-    </div>
-    <button type="submit" class="btn btn-primary">Update</button>
-    <a asp-page="AccountantIndex" class="btn btn-secondary">Cancel</a>
-</form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
