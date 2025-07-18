@@ -12,7 +12,13 @@
         <a asp-page="/Dashboard/Voucher/AddVoucher" class="btn btn-success shadow-sm">
             🧾 Add New Voucher
         </a>
+        <form method="post" asp-page-handler="Export">
+            <button type="submit" class="btn btn-outline-success">
+                ⬇️ Export to Excel
+            </button>
+        </form>
     </div>
+    
 
     <div class="card shadow-sm">
         <div class="card-body p-0">

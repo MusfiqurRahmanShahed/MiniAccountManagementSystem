@@ -1,8 +1,13 @@
+using AccountManagementSystem.Pages.Dashboard.Voucher;
 using AccountManagementSystem.Services;
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
 
 // 1. Add DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -27,6 +32,12 @@ builder.Services.AddAuthorization();
 
 // 3. Add Razor Pages
 builder.Services.AddRazorPages();
+
+builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
+
+var context = new CustomAssemblyLoadContext();
+context.LoadUnmanagedLibrary(Path.Combine(Directory.GetCurrentDirectory(), "libwkhtmltox.dll"));
+
 
 var app = builder.Build();
 

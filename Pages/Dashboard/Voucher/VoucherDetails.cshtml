@@ -12,6 +12,13 @@
         <a asp-page="/Dashboard/Voucher/VoucherIndex" class="btn btn-outline-secondary">
             ⬅️ Back to List
         </a>
+
+        <form method="post" asp-page-handler="DownloadPdf" class="d-inline">
+            <input type="hidden" name="id" value="@Model.Header.Id" />
+            <button type="submit" class="btn btn-outline-primary">
+                ⬇️ Download as PDF
+            </button>
+        </form>
     </div>
 
     <div class="card shadow-sm mb-4">
