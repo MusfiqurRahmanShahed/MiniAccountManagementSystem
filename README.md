@@ -22,5 +22,5 @@ The Mini Account Management System is built using modern, scalable technologies 
 | **Accountant** | Can add/edit/delete vouchers,accountant,viewer, view reports,         |
 | **Viewer**     | Read-only access to Viewer                                            |
 
-![Admin Dashboard](Screenshots/AdminDashboard.png)
+![Admin Dashboard](./Screenshots/AdminDashboard.png)
 
